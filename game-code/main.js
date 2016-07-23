@@ -2,9 +2,10 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
+TARGET_CREEPS = 10;
 var TARGET_ROLES = {
-    'harvester': 2,
-    'upgrader': 2
+    'harvester': 4,
+    'upgrader': 6
 }
 
 function generateRoleCounts() {
@@ -22,10 +23,10 @@ function generateRoleCounts() {
 
 module.exports.loop = function () {
 
-    if (Object.keys(Game.creeps).length < 4) {
+    if (Object.keys(Game.creeps).length < TARGET_CREEPS) {
         Game.spawns['Spawn1'].createCreep([MOVE, WORK, CARRY])
     }
-    
+
     var unassigned = _.filter(Game.creeps, (creep) => !creep.memory.role)
     if (unassigned) {
         for (creep of unassigned) {
@@ -36,9 +37,9 @@ module.exports.loop = function () {
                     break;
                 }
             }
-            
+
             creep.say("unassigned")
-        }  
+        }
     }
 
     for(var name in Game.creeps) {
