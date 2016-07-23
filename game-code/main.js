@@ -2,10 +2,10 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
-TARGET_CREEPS = 10;
+TARGET_CREEPS = 16;
 var TARGET_ROLES = {
     'harvester': 4,
-    'upgrader': 6
+    'upgrader': 12
 }
 
 function generateRoleCounts() {
@@ -41,6 +41,13 @@ module.exports.loop = function () {
             creep.say("unassigned")
         }
     }
+
+    for(var i in Memory.creeps) {
+        if(!Game.creeps[i]) {
+            delete Memory.creeps[i];
+        }
+    }
+
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
